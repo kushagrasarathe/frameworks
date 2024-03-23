@@ -43,3 +43,45 @@ export const getUser = async (userfid: number) => {
     console.log(error);
   }
 };
+
+export const getReactionsLike = async (userfid: number) => {
+  const url = `https://hub.pinata.cloud/v1/reactionsByFid?fid=${userfid}&reaction_type=REACTION_TYPE_LIKE`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.JWT}`,
+  };
+  try {
+    const data = await fetch(`${url}`, {
+      headers: headers,
+    });
+
+    console.log(data);
+    const res = data.json();
+    console.log(res);
+    // {"result":[{"fid":3,"fname":"danromero.eth","username":"dwr.eth","rank":1,"score":0.026320092380046844,"percentile":100}]}%
+    // const result = data.result
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getReactionsRecasts = async (userfid: number) => {
+  const url = `https://hub.pinata.cloud/v1/reactionsByFid?fid=${userfid}&reaction_type=REACTION_TYPE_RECAST`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.JWT}`,
+  };
+  try {
+    const data = await fetch(`${url}`, {
+      headers: headers,
+    });
+
+    console.log(data);
+    const res = data.json();
+    console.log(res);
+    // {"result":[{"fid":3,"fname":"danromero.eth","username":"dwr.eth","rank":1,"score":0.026320092380046844,"percentile":100}]}%
+    // const result = data.result
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@airstack/airstack-react": "^0.6.2",
+    "@airstack/frames": "^1.0.20",
+    "@airstack/node": "^0.0.5",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
