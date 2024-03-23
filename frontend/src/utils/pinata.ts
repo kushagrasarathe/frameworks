@@ -13,9 +13,11 @@ export const getUserCasts = async (userfid: number) => {
       headers: headers,
     });
 
-    console.log(data);
-    const res = data.json();
+    // console.log(data);
+    const res = await data.json();
     console.log(res);
+    const result = res.data.casts;
+    return result;
     // {"result":[{"fid":3,"fname":"danromero.eth","username":"dwr.eth","rank":1,"score":0.026320092380046844,"percentile":100}]}%
     // const result = data.result
   } catch (error) {
@@ -37,6 +39,29 @@ export const getUser = async (userfid: number) => {
     console.log(data);
     const res = data.json();
     console.log(res);
+    // {"result":[{"fid":3,"fname":"danromero.eth","username":"dwr.eth","rank":1,"score":0.026320092380046844,"percentile":100}]}%
+    // const result = data.result
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserAuthoredCasts = async (userfid: number) => {
+  const url = `https://hub.pinata.cloud/v1/castsByFid?fig=${userfid}`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.JWT}`,
+  };
+  https: try {
+    const data = await fetch(`${base_url}${url}`, {
+      headers: headers,
+    });
+
+    console.log(data);
+    const res = await data.json();
+    console.log(res);
+    const result = res.data.casts;
+    return result;
     // {"result":[{"fid":3,"fname":"danromero.eth","username":"dwr.eth","rank":1,"score":0.026320092380046844,"percentile":100}]}%
     // const result = data.result
   } catch (error) {

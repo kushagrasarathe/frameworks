@@ -3,7 +3,8 @@ import Image from "next/image";
 import { Frame, getFrameFlattened } from "frames.js";
 import type { Metadata } from "next";
 import { fetchMetadata } from "frames.js/next";
-import { getUserEngagmentData } from "@/utils/getOpenRankData";
+// import { getUserEngagmentData } from "@/utils/getOpenRankData";
+import { getUserAllData } from "@/utils/airstack";
 
 // Declare the frame
 // const initialFrame: Frame = {
@@ -45,11 +46,14 @@ import { getUserEngagmentData } from "@/utils/getOpenRankData";
 export default function Home() {
   const callapiHandle = async () => {
     try {
-      await getUserEngagmentData();
+      await fetch("/api/calculateScore", {
+        method: "POST",
+      });
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -57,7 +61,7 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className="font-mono font-bold">src/app/page.tsx</code>
         </p>
-        <button onClick={() => callapiHandle()}>Call</button>
+        <button onClick={() => callapiHandle()}> Call </button>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"

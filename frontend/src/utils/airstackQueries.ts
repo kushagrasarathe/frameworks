@@ -1,6 +1,9 @@
-const userFidQuery = `query($fid: Int)  MyQuery {
+export const userFidQuery = `query($handle: Identity) {
   Socials(
-    input: {filter: {dappName: {_eq: farcaster}, identity: {_eq: "fc_fid:$fid"}}, blockchain: ethereum}
+    input: {
+      filter: {dappName: {_eq: farcaster}, identity: {_eq: $handle}}, 
+    blockchain: ethereum
+  }
   ) {
     Social {
       id
