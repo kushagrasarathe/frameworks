@@ -21,22 +21,22 @@ const value = [
 export default function Heatmap() {
   const [selected, setSelected] = useState("");
   return (
-    <div className=" p-6 w-full">
-      <Card className=" bg-white p-4 pt-5 w-full">
+    <div className="w-full ">
+      <Card className=" p-4 pt-5 w-full">
         <HeatMap
           width={"full"}
           mode={"dark"}
           panelColors={{
             1: "#88E0EF",
-            2: "#77d6e4",
-            3: "#66cbd9",
-            4: "#55c0ce",
-            5: "#44b5c3",
-            6: "#33abb8",
-            7: "#22a0ad",
-            8: "#1195a2",
-            9: "#008b97",
-            10: "#007e8b",
+            2: "#7ed9f0",
+            3: "#74d1f0",
+            4: "#6acaf1",
+            5: "#60c2f1",
+            6: "#56baf2",
+            7: "#4cb2f2",
+            8: "#42abf2",
+            9: "#38a3f3",
+            10: "#2f9bf3",
           }}
           value={value}
           monthLabels={false}
