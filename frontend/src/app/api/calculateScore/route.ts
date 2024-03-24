@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     // await getUserEngagmentData();
-    const userHandle = "dwr.eth";
+    const userHandle = "0xdhruv.eth";
     const userFid = 3;
 
     await calculateScore(userHandle, userFid);

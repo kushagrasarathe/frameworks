@@ -18,31 +18,31 @@ import {
 export const calculateScore = async (userHandle: string, fid: number) => {
   try {
     // 1. get Engagment ranking from openranks ( out of 200 )
-    // const engagementRank = await getUserGlobalEngagmentRanking(userHandle);
-    // const engagementPoints = engagementRank.percentile*2;
-    // const fid = engagementRank.fid;
+    const engagementRank = await getUserGlobalEngagmentRanking(userHandle);
+    const engagementPoints = engagementRank.percentile * 2;
+    const fid = engagementRank.fid;
     // get Casts by the user
     // const casts = await getUserAuthoredCasts(fid);
-    // const casts2 = await getUserCasts(fid);
+    const casts2 = await getUserCasts(fid);
     // 2.calculate the post freq score ( out of 150 )
-    // const castFrequencyScore = await calculatePostFreq(casts2);
+    const castFrequencyScore = await calculatePostFreq(casts2);
     // 3.calculate the post quality score ( out of 50 )
-    // const postQualityScore = 50;
+    const postQualityScore = 40;
     //
     // fetch user reactions
     // 4. get the no of likes (out of 50)
-    // const reactionsLike = await getUserLikes(fid);
-    // const reactionLikeScore =
-    //   ((await calculateReactionFreq(reactionsLike)) * 50) / 100;
+    const reactionsLike = await getUserLikes(fid);
+    const reactionLikeScore =
+      ((await calculateReactionFreq(reactionsLike)) * 50) / 100;
     // 4. get the no of recasts  (out of 50)
-    // const reactionsRecast = await getUserRecasts(fid);
-    // const reactionRecastScore =
-    //   ((await calculateReactionFreq(reactionsRecast)) * 50) / 100;
+    const reactionsRecast = await getUserRecasts(fid);
+    const reactionRecastScore =
+      ((await calculateReactionFreq(reactionsRecast)) * 50) / 100;
     // console.log(reactionLikeScore, reactionRecastScore);
     //
     // 5. Take the no of followers to calculate the  following score (out of 100)
-    // const followingRank = await getUserGlobalFollowingRanking(userHandle);
-    // const followingPoints = followingRank.percentile;
+    const followingRank = await getUserGlobalFollowingRanking(userHandle);
+    const followingPoints = followingRank.percentile;
     // // fetch user data from Airstack
     const userData = await getUserAllData(userHandle);
     // console.log(userData);
@@ -50,10 +50,20 @@ export const calculateScore = async (userHandle: string, fid: number) => {
     // // 6. Get the account creation time for user to calculate the longevity score (out of 100)
     const userCreatedTime = new Date(userData.userCreatedAtBlockTimestamp);
     const longevityScore = await calculateLongevityScore(userCreatedTime);
-    console.log(longevityScore);
+    // console.log(longevityScore);
 
     // fetch users onchain activity data from airstack
     // 7. get the onchain activity like tokens transfer , nft minting , etc.
+
+    const finalScore =
+      engagementPoints +
+      followingPoints +
+      castFrequencyScore +
+      postQualityScore +
+      reactionLikeScore +
+      reactionRecastScore +
+      longevityScore;
+    console.log(finalScore);
   } catch (error) {
     console.log(error);
   }
@@ -109,9 +119,9 @@ const calculateLongevityScore = async (accountCreationDate: Date) => {
       (1000 * 60 * 60 * 24)
   );
 
-  if (diffInDays > 100) {
+  if (diffInDays > 200) {
     return 100;
   } else {
-    return (diffInDays / 100) * 100;
+    return (diffInDays / 200) * 100;
   }
 };

@@ -11,8 +11,8 @@ export const getUserAllData = async (userHandle: string) => {
       handle: userHandle,
     });
 
-    console.log("data:", data);
-    console.log("error:", error);
+    // console.log("data:", data);
+    // console.log("error:", error);
     if (error) {
       console.log(error[0].locations);
     }
