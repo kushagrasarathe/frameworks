@@ -79,7 +79,7 @@ export const GET = async (
                 User Engagement
               </span>
               <span tw=" text-base font-semibold text-cyan-500">
-                {userData.engagementScores}
+                {userData.engagementScore}
                 <span tw=" text-black"> / 200</span>
               </span>
             </div>
@@ -121,7 +121,7 @@ export const GET = async (
                 Onchain Activty
               </span>
               <span tw=" text-base font-semibold text-cyan-500">
-                80 <span tw=" text-black"> / 200</span>
+                {userData.onChainScore} <span tw=" text-black"> / 200</span>
               </span>
             </div>
           </div>

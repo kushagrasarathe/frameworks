@@ -1,6 +1,7 @@
 // ./app/frames/route.tsx
 /* eslint-disable react/jsx-key */
 import { UserReputationScoreType } from "@/utils/calculateScore";
+import { kv } from "@vercel/kv";
 import { createFrames, Button } from "frames.js/next";
 
 const frames = createFrames();
@@ -12,11 +13,16 @@ const handleRequest = frames(async (ctx) => {
   console.log(userHandle);
 
   // get the data for that user from kv
-  const response = await fetch(
-    `${process.env.HOST}/api/calculateScore/${userHandle}`
+  // const response = await fetch(
+  //   `${process.env.HOST}/api/calculateScore/${userHandle}`
+  // );
+
+  const userData: UserReputationScoreType | undefined | null = await kv.get(
+    userHandle
   );
 
-  const userData: UserReputationScoreType | undefined = await response.json();
+  // const userData: UserReputationScoreType | undefined = await response.json();
+
   // console.log(userData);
   // render it
   // Might want to check the data and revert saying refresh Again
@@ -67,7 +73,9 @@ const handleRequest = frames(async (ctx) => {
               </h4>
               <img
                 src={
-                  "https://pbs.twimg.com/profile_images/1732439974497394688/ezW7LwKq_400x400.jpg"
+                  userData.profile
+                    ? userData.profile
+                    : "https://pbs.twimg.com/profile_images/1732439974497394688/ezW7LwKq_400x400.jpg"
                 }
                 alt="pfp"
                 tw="rounded-full h-20 w-20 shadow-2xl broder-2"
@@ -78,7 +86,7 @@ const handleRequest = frames(async (ctx) => {
                 User Engagement
               </span>
               <span style={{ fontWeight: 600 }} tw=" text-base text-cyan-500">
-                {userData.engagementScores}
+                {userData.engagementScore}
                 <span tw=" text-black"> / 200</span>
               </span>
             </div>
@@ -112,7 +120,7 @@ const handleRequest = frames(async (ctx) => {
             <div style={{ fontWeight: 600 }} tw=" mb-4 flex justify-between">
               <span tw="text-base text-teal-500">Onchain Activty</span>
               <span tw=" text-base text-cyan-500">
-                80 <span tw=" text-black"> / 200</span>
+                {userData.onChainScore} <span tw=" text-black"> / 200</span>
               </span>
             </div>
           </div>
@@ -131,10 +139,26 @@ const handleRequest = frames(async (ctx) => {
   } else {
     return {
       image: (
-        <div tw="flex w-full h-full bg-slate-700 text-white justify-center items-center">
-          {/* {ctx.message?.state?.count ?? 0} */}
-          <a>Cooking up your Score ..</a>
-          <a>Hit refresh now</a>
+        <div tw=" flex items-stretch  justify-between w-full h-full bg-[#ecf2ff]">
+          <div tw="flex flex-col card-score items-center justify-center w-full">
+            <h4 tw=" text-2xl font-semibold text-black mb-6">Vericast</h4>
+            <div
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, #4d21c9 0%, rgba(37, 33, 201, 0) 100%, rgba(37, 33, 201, 0) 100%)",
+                border: "2px",
+              }}
+              tw=" flex items-center flex-col justify-center h-40 w-40 rounded-full text-black shadow-2xl	"
+            >
+              <img
+                src="https://th.bing.com/th/id/OIG2.Is.h72tGUlpfskKIrRAj?pid=ImgGn"
+                tw="rounded-full"
+              />
+            </div>
+            <p tw=" text-base font-medium text-black mt-6">
+              Crunching your score, hit refresh to see it now
+            </p>
+          </div>
         </div>
       ),
       buttons: [<Button action="post">Refresh</Button>],

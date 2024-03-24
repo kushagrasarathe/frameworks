@@ -89,14 +89,15 @@ export const calculateScore = async (
         onChainScore
     );
 
-    console.log(finalScore);
+    console.log(fid, finalScore);
 
     return {
       fid: fid,
       fname: engagementRank.fname,
       userhandle: userHandle,
+      //@ts-ignore
       profile: userFidData?.profileImage,
-      engagementScores: engagementPoints,
+      engagementScore: engagementPoints,
       castFrequencyScore: castFrequencyScore,
       postQualityScore: postQualityScore,
       reactionLikeScore: reactionLikeScore,

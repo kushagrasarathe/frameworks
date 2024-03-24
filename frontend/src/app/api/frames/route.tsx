@@ -5,14 +5,30 @@ import { createFrames, Button } from "frames.js/next";
 const frames = createFrames();
 
 const handleRequest = frames(async (ctx) => {
-  console.log(ctx.url);
   return {
     image: (
-      <div tw="flex w-full h-full bg-slate-700 text-white justify-center items-center">
-        {/* {ctx.message?.state?.count ?? 0} */}
-        <a>Introductory Frame</a>
-        <br />
-        <a>Get Your Reputation Score on farcaster</a>
+      <div tw=" flex items-stretch  justify-between w-full h-full bg-[#ecf2ff]">
+        <div tw="flex flex-col card-score items-center justify-center w-full">
+          <h4 tw=" text-3xl font-semibold text-black mb-6">
+            Welcome to Vericast
+          </h4>
+          <div
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, #4d21c9 0%, rgba(37, 33, 201, 0) 100%, rgba(37, 33, 201, 0) 100%)",
+              border: "2px",
+            }}
+            tw=" flex items-center flex-col justify-center h-40 w-40 rounded-full text-black shadow-2xl	"
+          >
+            <img
+              src="https://th.bing.com/th/id/OIG2.Is.h72tGUlpfskKIrRAj?pid=ImgGn"
+              tw="rounded-full"
+            />
+          </div>
+          <p tw=" text-xl font-medium text-black mt-6">
+            Calculate your reputation score on Farcaster
+          </p>
+        </div>
       </div>
     ),
     buttons: [
@@ -23,6 +39,7 @@ const handleRequest = frames(async (ctx) => {
         Generate your Score now →
       </Button>,
     ],
+    textInput: "Farcaster Handle...",
     accepts: [
       {
         id: "farcaster",

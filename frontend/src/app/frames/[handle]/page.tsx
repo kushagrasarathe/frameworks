@@ -1,6 +1,8 @@
 import React from "react";
 
 import { fetchMetadata } from "frames.js/next";
+import StatsCard from "@/components/stats-card";
+import HeatMap from "@uiw/react-heat-map";
 
 export async function generateMetadata({
   params,
@@ -21,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default function page() {
+export default function Frames({ params }: { params: { handle: string } }) {
   return (
     <div className=" flex items-center justify-center gap-5 min-h-[80vh]">
       <div className="flex flex-col items-center justify-center bg-white h-[400px] w-[800px]">

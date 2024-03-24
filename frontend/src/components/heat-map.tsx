@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeatMap from "@uiw/react-heat-map";
 import { Card } from "./ui/card";
+import { getUserCasts } from "@/utils/neynar";
 
 const value = [
   { date: "2024/01/1", count: 0 },
@@ -18,8 +19,27 @@ const value = [
   { date: "2024/01/11", count: 10 },
 ];
 
-export default function Heatmap() {
+export default function Heatmap({ fid }: { fid: number | undefined }) {
   const [selected, setSelected] = useState("");
+
+  const getUserData = async (fid: number) => {
+    try {
+      const response = await getUserCasts(fid);
+      const data = await response.json();
+
+      console.log(data);
+      // setUserData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!selected && fid) {
+      getUserData(fid);
+    }
+  }, [fid]);
+
   return (
     <div className="w-full space-y-4 ">
       <div className=" text-2xl font-semibold">Your Activity</div>
