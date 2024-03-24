@@ -34,7 +34,7 @@ const handleRequest = frames(async (ctx) => {
             }}
             tw="flex flex-1 flex-col items-center justify-center w-full"
           >
-            <h4 tw=" text-2xl font-semibold text-white mb-6">
+            <h4 style={{ fontWeight: 600 }} tw=" text-2xl text-white mb-6">
               Your Reputation Score
             </h4>
             <div
@@ -44,10 +44,12 @@ const handleRequest = frames(async (ctx) => {
               }}
               tw=" flex items-center flex-col justify-center p-8 h-40 w-40 rounded-full text-white border border-white shadow-2xl	"
             >
-              <span tw="text-5xl font-bold">{userData.totalScore}</span>
+              <span style={{ fontWeight: 800 }} tw="text-5xl">
+                {userData.totalScore}
+              </span>
               <span tw=" text-xl font-semibold">of 1000</span>
             </div>
-            <p tw=" text-base font-medium text-white mt-6">
+            <p style={{ fontWeight: 600 }} tw=" text-base text-white mt-6">
               Your are among top 70% users on Farcaster
             </p>
           </div>
@@ -60,7 +62,7 @@ const handleRequest = frames(async (ctx) => {
             tw="flex flex-1 flex-col m px-8 py-8"
           >
             <div tw="flex items-center justify-between w-full mb-4">
-              <h4 tw=" text-2xl font-semibold text-indigo-500">
+              <h4 style={{ fontWeight: 600 }} tw=" text-2xl text-indigo-500">
                 {userData.userhandle}
               </h4>
               <img
@@ -72,52 +74,44 @@ const handleRequest = frames(async (ctx) => {
               />
             </div>
             <div tw=" my-4 flex justify-between">
-              <span tw=" text-base font-medium text-green-500">
+              <span style={{ fontWeight: 600 }} tw=" text-base text-green-500">
                 User Engagement
               </span>
-              <span tw=" text-base font-semibold text-cyan-500">
+              <span style={{ fontWeight: 600 }} tw=" text-base text-cyan-500">
                 {userData.engagementScores}
                 <span tw=" text-black"> / 200</span>
               </span>
             </div>
-            <div tw=" mb-4 flex justify-between">
-              <span tw="text-base font-medium text-red-500">
-                Cast Frequency
-              </span>
-              <span tw=" text-base font-semibold text-cyan-500">
+            <div style={{ fontWeight: 600 }} tw=" mb-4 flex justify-between">
+              <span tw="text-base text-red-500">Cast Frequency</span>
+              <span tw=" text-base text-cyan-500">
                 {userData.castFrequencyScore}
                 <span tw=" text-black"> / 150</span>
               </span>
             </div>
-            <div tw=" mb-4 flex justify-between">
-              <span tw=" text-base font-medium text-violet-500">Longevity</span>
-              <span tw=" text-base font-semibold text-cyan-500">
+            <div style={{ fontWeight: 600 }} tw=" mb-4 flex justify-between">
+              <span tw=" text-base text-violet-500">Longevity</span>
+              <span tw=" text-base text-cyan-500">
                 {userData.longevityScore}
                 <span tw=" text-black"> / 100</span>
               </span>
             </div>
-            <div tw=" mb-4 flex justify-between">
-              <span tw="text-base font-medium text-amber-500">
-                Network Size
-              </span>
-              <span tw=" text-base font-semibold text-cyan-500">
+            <div style={{ fontWeight: 600 }} tw=" mb-4 flex justify-between">
+              <span tw="text-base text-amber-500">Network Size</span>
+              <span tw=" text-base text-cyan-500">
                 {userData.followingScore} <span tw=" text-black"> / 100</span>
               </span>
             </div>
-            <div tw=" mb-4 flex justify-between">
-              <span tw="text-base font-medium text-lime-500">
-                Farcaster Activity
-              </span>
-              <span tw=" text-base font-semibold text-cyan-500">
+            <div style={{ fontWeight: 600 }} tw=" mb-4 flex justify-between">
+              <span tw="text-base text-lime-500">Farcaster Activity</span>
+              <span tw=" text-base text-cyan-500">
                 {userData.reactionLikeScore + userData.reactionRecastScore}{" "}
                 <span tw=" text-black"> / 100</span>
               </span>
             </div>
-            <div tw=" mb-4 flex justify-between">
-              <span tw="text-base font-medium text-teal-500">
-                Onchain Activty
-              </span>
-              <span tw=" text-base font-semibold text-cyan-500">
+            <div style={{ fontWeight: 600 }} tw=" mb-4 flex justify-between">
+              <span tw="text-base text-teal-500">Onchain Activty</span>
+              <span tw=" text-base text-cyan-500">
                 80 <span tw=" text-black"> / 200</span>
               </span>
             </div>

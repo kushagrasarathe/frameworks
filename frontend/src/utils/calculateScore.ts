@@ -1,4 +1,5 @@
-import { getUserAllData } from "./airstack";
+import { getUserDataForFid } from "frames.js";
+import { getUserAllData, getUserOnchainData } from "./airstack";
 import {
   getUserGlobalEngagmentRanking,
   getUserGlobalFollowingRanking,
@@ -14,13 +15,15 @@ export interface UserReputationScoreType {
   fid: number;
   fname: string;
   userhandle: string;
-  engagementScores: number;
+  profile: string;
+  engagementScore: number;
   castFrequencyScore: number;
   postQualityScore: number;
   reactionLikeScore: number;
   reactionRecastScore: number;
   followingScore: number;
   longevityScore: number;
+  onChainScore: number;
   totalScore: number;
 }
 
@@ -33,6 +36,9 @@ export const calculateScore = async (
     const engagementPoints = engagementRank.percentile * 2;
     const fid = engagementRank.fid;
     // get Casts by the user
+
+    const userFidData = await getUserDataForFid({ fid: fid });
+
     // const casts = await getUserAuthoredCasts(fid);
     const casts2 = await getUserCasts(fid);
     // 2.calculate the post freq score ( out of 150 )
@@ -65,27 +71,38 @@ export const calculateScore = async (
 
     // fetch users onchain activity data from airstack
     // 7. get the onchain activity like tokens transfer , nft minting , etc.
+    const userOnchainData = await getUserOnchainData(
+      userData.userAssociatedAddresses[1]
+        ? userData.userAssociatedAddresses[1]
+        : userData.userAddress
+    );
+    const onChainScore = await calculateOnchainScore(userOnchainData);
 
-    const finalScore =
+    const finalScore = Math.round(
       engagementPoints +
-      followingPoints +
-      castFrequencyScore +
-      postQualityScore +
-      reactionLikeScore +
-      reactionRecastScore +
-      longevityScore;
+        followingPoints +
+        castFrequencyScore +
+        postQualityScore +
+        reactionLikeScore +
+        reactionRecastScore +
+        longevityScore +
+        onChainScore
+    );
+
     console.log(finalScore);
 
     return {
       fid: fid,
       fname: engagementRank.fname,
       userhandle: userHandle,
+      profile: userFidData?.profileImage,
       engagementScores: engagementPoints,
       castFrequencyScore: castFrequencyScore,
       postQualityScore: postQualityScore,
       reactionLikeScore: reactionLikeScore,
       reactionRecastScore: reactionRecastScore,
       longevityScore: longevityScore,
+      onChainScore: onChainScore,
       followingScore: followingPoints,
       totalScore: finalScore,
     };
@@ -149,4 +166,45 @@ const calculateLongevityScore = async (accountCreationDate: Date) => {
   } else {
     return (diffInDays / 200) * 100;
   }
+};
+
+export const calculateOnchainScore = async (userOnchainData: any) => {
+  // count the no of total Token transfers on chain and then grade it out of , if more than 50 then 50 points , otherwise , whatever is lesser
+  // out of 75
+  const totalTransfers =
+    userOnchainData.ethereumTransfer.length +
+    userOnchainData.polygonTransfer.length +
+    userOnchainData.baseTransfer.length;
+  // console.log(totalTransfers);
+
+  let totalBalance: number = 0;
+
+  await userOnchainData.ethereumBalance.forEach((balance: any) => {
+    totalBalance += balance.formattedAmount;
+  });
+
+  await userOnchainData.polygonBalance.forEach((balance: any) => {
+    totalBalance += balance.formattedAmount;
+  });
+
+  await userOnchainData.baseBalance.forEach((balance: any) => {
+    totalBalance += balance.formattedAmount;
+  });
+
+  let balancePoint = totalBalance > 1000 ? 75 : (totalBalance * 75) / 1000;
+  // console.log(balancePoint);
+
+  let poapsPoint = userOnchainData.poaps.length;
+  // console.log(poapsPoint);
+
+  let domainsPoint = userOnchainData.domains.length * 15;
+  // console.log(domainsPoint);
+
+  let xmtpPoint = userOnchainData.xmtp.isXMTPEnabled ? 10 : 0;
+  // console.log(xmtpPoint);
+
+  const totalOnchainPoints =
+    totalTransfers + balancePoint + poapsPoint + domainsPoint + xmtpPoint;
+
+  return totalOnchainPoints;
 };
