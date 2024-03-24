@@ -64,7 +64,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center flex-col justify-normal mt-16 min-h-screen gap-10 w-[80vw] mx-auto">
+    <div className="flex items-center flex-col justify-normal mt-16 min-h-screen gap-10 w-[80vw] mx-auto pb-16">
       {/* <div className="  mt-20 max-w-6xl mx-auto "> */}
       {/* <button onClick={() => callapiHandle()}> Call </button> */}
       <StatsCard />

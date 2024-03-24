@@ -21,8 +21,9 @@ const value = [
 export default function Heatmap() {
   const [selected, setSelected] = useState("");
   return (
-    <div className="w-full ">
-      <Card className=" p-4 pt-5 w-full">
+    <div className="w-full space-y-4 ">
+      <div className=" text-2xl font-semibold">Your Activity</div>
+      <Card className=" p-4 pt-5 w-full shadow-xl">
         <HeatMap
           width={"full"}
           mode={"dark"}

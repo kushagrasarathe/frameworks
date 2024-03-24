@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "./ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { MoveUpRight, Share } from "lucide-react";
+import { ImageDown, ImageIcon, MoveUpRight, Share } from "lucide-react";
 import { Separator } from "./ui/separator";
 
 export default function StatsCard() {
@@ -38,7 +38,7 @@ export default function StatsCard() {
           <Separator />
           {/* <h3 className="text-2xl font-semibold">Summary</h3> */}
           <div className="card-details__score  flex justify-between">
-            <span className="card-details__category card-details__category-one text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-one text-xl font-medium ">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
@@ -46,7 +46,7 @@ export default function StatsCard() {
             </span>
           </div>
           <div className="card-details__score  flex justify-between">
-            <span className="card-details__category card-details__category-two text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-two text-xl font-medium ">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
@@ -54,7 +54,7 @@ export default function StatsCard() {
             </span>
           </div>
           <div className="card-details__score  flex justify-between">
-            <span className="card-details__category card-details__category-three text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-three text-xl font-medium ">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
@@ -62,7 +62,7 @@ export default function StatsCard() {
             </span>
           </div>
           <div className="card-details__score flex justify-between">
-            <span className="card-details__category card-details__category-four text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-four text-xl font-medium text-cyan-500">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
@@ -70,7 +70,7 @@ export default function StatsCard() {
             </span>
           </div>
           <div className="card-details__score  flex justify-between">
-            <span className="card-details__category card-details__category-four text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-four text-xl font-medium text-lime-500">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
@@ -78,7 +78,7 @@ export default function StatsCard() {
             </span>
           </div>
           <div className="card-details__score  flex justify-between">
-            <span className="card-details__category card-details__category-four text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-four text-xl font-medium ">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
@@ -86,16 +86,24 @@ export default function StatsCard() {
             </span>
           </div>
           <div className="card-details__score  flex justify-between">
-            <span className="card-details__category card-details__category-four text-xl font-medium text-dark-navy">
+            <span className="card-details__category card-details__category-four text-xl font-medium text-sky-500">
               Metric 1
             </span>
             <span className="card-details__result text-xl font-semibold">
               80<span className="card-details__max">/ 100</span>
             </span>
           </div>
-          <Button className=" flex items-center gap-2">
-            <span>Share</span> <Share className=" w-5 h-5" />
-          </Button>
+          <div className=" flex items-center justify-end gap-3">
+            <Button
+              variant={"secondary"}
+              className=" border flex items-center gap-2 w-full"
+            >
+              <span>Mint</span> <ImageIcon className=" w-4 h-4" />
+            </Button>
+            <Button className=" flex items-center gap-2 w-full">
+              <span>Share</span> <Share className=" w-4 h-4 " />
+            </Button>
+          </div>
         </div>
       </Card>
       <div className=" flex items-start justify-between w-full">
