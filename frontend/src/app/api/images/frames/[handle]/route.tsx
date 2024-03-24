@@ -1,14 +1,18 @@
 // ./app/frames/route.tsx
 /* eslint-disable react/jsx-key */
 import { UserReputationScoreType } from "@/utils/calculateScore";
-import { createFrames, Button } from "frames.js/next";
 
-const frames = createFrames();
+import { ImageResponse } from "@vercel/og";
 
-const handleRequest = frames(async (ctx) => {
-  const url = ctx.url;
-  const path = url.pathname.split("/");
-  const userHandle = path[path.length - 1];
+export const GET = async (
+  req: Request,
+  {
+    params,
+  }: {
+    params: { handle: string };
+  }
+) => {
+  const userHandle = params.handle;
   console.log(userHandle);
 
   // get the data for that user from kv
@@ -17,20 +21,19 @@ const handleRequest = frames(async (ctx) => {
   );
 
   const userData: UserReputationScoreType | undefined = await response.json();
-  // console.log(userData);
+  console.log(userData);
   // render it
   // Might want to check the data and revert saying refresh Again
   if (userData) {
-    return {
-      // image: `${process.env.HOST}/api/images/frames/${userHandle}`,
-      image: (
-        <div tw="flex h-full w-full items-center justify-between bg-white">
+    return new ImageResponse(
+      (
+        <div tw=" flex h-[476px] w-[910px] items-center justify-between w-full bg-white">
           <div
             style={{
               backgroundImage:
                 "linear-gradient(to bottom, #75f 0%, #6943ff 0.01%, #2f2ce9 100%)",
               width: 500,
-              height: 600,
+              height: 476,
             }}
             tw="flex flex-1 flex-col items-center justify-center w-full"
           >
@@ -55,7 +58,7 @@ const handleRequest = frames(async (ctx) => {
             style={{
               backgroundImage: "linear-gradient(to top, #ffffff, #ebf4ff)",
               width: 410,
-              height: 600,
+              height: 476,
             }}
             tw="flex flex-1 flex-col m px-8 py-8"
           >
@@ -124,30 +127,12 @@ const handleRequest = frames(async (ctx) => {
           </div>
         </div>
       ),
-      buttons: [
-        <Button
-          action="link"
-          target={`${process.env.HOST}/frames/${userHandle}`}
-        >
-          Profile
-        </Button>,
-      ],
-      // state: { count: (ctx.message?.state?.count ?? 0) + 1 },
-    };
+      {
+        width: 910,
+        height: 476,
+      }
+    );
   } else {
-    return {
-      image: (
-        <div tw="flex w-full h-full bg-slate-700 text-white justify-center items-center">
-          {/* {ctx.message?.state?.count ?? 0} */}
-          <a>Cooking up your Score ..</a>
-          <a>Hit refresh now</a>
-        </div>
-      ),
-      buttons: [<Button action="post">Refresh</Button>],
-      // state: { count: (ctx.message?.state?.count ?? 0) + 1 },
-    };
+    return new Response("Not Available", { status: 500 });
   }
-});
-
-export const GET = handleRequest; // Direct Frame Link
-export const POST = handleRequest; // For Last frame after fetching it
+};

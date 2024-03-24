@@ -32,6 +32,9 @@ dependencies:
   '@vercel/kv':
     specifier: ^1.0.1
     version: 1.0.1
+  '@vercel/og':
+    specifier: ^0.6.2
+    version: 0.6.2
   axios:
     specifier: ^1.6.8
     version: 1.6.8

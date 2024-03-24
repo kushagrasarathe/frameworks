@@ -30,8 +30,7 @@ export async function POST(
     const userNewScore = await calculateScore(params.handle);
 
     await kv.set(params.handle, userNewScore);
-
-    console.log(userNewScore);
+    // console.log(userNewScore);
 
     return new Response("User Reputation Score Stored", {
       status: 200,

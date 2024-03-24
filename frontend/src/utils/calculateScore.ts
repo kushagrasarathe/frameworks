@@ -9,13 +9,8 @@ import {
   getUserReactions,
   getUserRecasts,
 } from "./neynar";
-import {
-  getReactionsLike,
-  getReactionsRecasts,
-  getUserAuthoredCasts,
-} from "./pinata";
 
-interface UserReputationScoreType {
+export interface UserReputationScoreType {
   fid: number;
   fname: string;
   userhandle: string;

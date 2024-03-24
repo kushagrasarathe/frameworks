@@ -6,7 +6,7 @@ import { createFrames, Button } from "frames.js/next";
 const frames = createFrames();
 
 const handleRequest = frames(async (ctx) => {
-  console.log(ctx.message);
+  // console.log(ctx.message);
   if (ctx.message) {
     // Get the users fid
     const userFid: number = ctx?.message.requesterFid;
