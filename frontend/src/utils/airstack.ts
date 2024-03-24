@@ -24,3 +24,23 @@ export const getUserAllData = async (userHandle: string) => {
     console.log(error);
   }
 };
+
+export const getUserOnchainScore = async (userHandle: string) => {
+  try {
+    const { data, error } = await fetchQuery(userFidQuery, {
+      handle: userHandle,
+    });
+
+    // console.log("data:", data);
+    // console.log("error:", error);
+    if (error) {
+      console.log(error[0].locations);
+    }
+    if (data) {
+      const userData = data.Socials.Social[0];
+      return userData;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
