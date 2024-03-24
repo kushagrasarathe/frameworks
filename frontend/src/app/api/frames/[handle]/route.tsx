@@ -5,16 +5,17 @@ import { createFrames, Button } from "frames.js/next";
 const frames = createFrames();
 
 const handleRequest = frames(async (ctx) => {
-  // Get the users fid
-  // try to fetch the data for the user
-  // if it goes above 5 sec , send a refresh Frame back
-  // Otherwise return the frame with user's profile
-
   const url = ctx.url;
   const userHandle = url.pathname;
   console.log(userHandle);
 
   // get the data for that user from kv
+  const response = await fetch(
+    `${process.env.HOST}/api/calculateScore/${userHandle}`
+  );
+  const userData = await response.json();
+  console.log(userData);
+  // render it
 
   // const userHandle = "0xdhruv.eth";
   return {
@@ -33,4 +34,5 @@ const handleRequest = frames(async (ctx) => {
   };
 });
 
-export const POST = handleRequest;
+export const GET = handleRequest; // Direct Frame Link
+export const POST = handleRequest; // For Last frame after fetching it

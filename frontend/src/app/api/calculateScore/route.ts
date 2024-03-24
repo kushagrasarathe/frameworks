@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const userHandle = "0xdhruv.eth";
     const userFid = 3;
 
-    await calculateScore(userHandle, userFid);
+    await calculateScore(userHandle);
 
     return new Response("ReuestCall Successful", {
       headers: {

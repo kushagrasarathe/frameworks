@@ -15,7 +15,23 @@ import {
   getUserAuthoredCasts,
 } from "./pinata";
 
-export const calculateScore = async (userHandle: string, fid: number) => {
+interface UserReputationScoreType {
+  fid: number;
+  fname: string;
+  userhandle: string;
+  engagementScores: number;
+  castFrequencyScore: number;
+  postQualityScore: number;
+  reactionLikeScore: number;
+  reactionRecastScore: number;
+  followingScore: number;
+  longevityScore: number;
+  totalScore: number;
+}
+
+export const calculateScore = async (
+  userHandle: string
+): Promise<UserReputationScoreType | undefined> => {
   try {
     // 1. get Engagment ranking from openranks ( out of 200 )
     const engagementRank = await getUserGlobalEngagmentRanking(userHandle);
@@ -64,6 +80,20 @@ export const calculateScore = async (userHandle: string, fid: number) => {
       reactionRecastScore +
       longevityScore;
     console.log(finalScore);
+
+    return {
+      fid: fid,
+      fname: engagementRank.fname,
+      userhandle: userHandle,
+      engagementScores: engagementPoints,
+      castFrequencyScore: castFrequencyScore,
+      postQualityScore: postQualityScore,
+      reactionLikeScore: reactionLikeScore,
+      reactionRecastScore: reactionRecastScore,
+      longevityScore: longevityScore,
+      followingScore: followingPoints,
+      totalScore: finalScore,
+    };
   } catch (error) {
     console.log(error);
   }
