@@ -129,7 +129,7 @@ const handleRequest = frames(async (ctx) => {
       buttons: [
         <Button
           action="link"
-          target={`${process.env.HOST}/frames/${userHandle}`}
+          target={`${process.env.HOST}/score/${userHandle}`}
         >
           Profile
         </Button>,

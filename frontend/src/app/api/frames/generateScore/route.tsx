@@ -176,7 +176,7 @@ const handleRequest = frames(async (ctx) => {
         buttons: [
           <Button
             action="link"
-            target={`${process.env.HOST}/frames/${userFid}`}
+            target={`${process.env.HOST}/score/${userHandle}`}
           >
             Profile
           </Button>,
