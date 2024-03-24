@@ -10,6 +10,8 @@ export async function GET(
     const userReputationScore = await kv.get(params.handle);
     // console.log(userReputationScore);
 
+    // check if the last Time Updated was a long ago , then just refresh the score
+
     return new Response(JSON.stringify(userReputationScore), {
       status: 200,
     });
@@ -26,6 +28,7 @@ export async function POST(
     // invoker User calculateData and then get the score and detailed info to store it on the KV
     console.log(params.handle);
     const userNewScore = await calculateScore(params.handle);
+
     await kv.set(params.handle, userNewScore);
 
     console.log(userNewScore);

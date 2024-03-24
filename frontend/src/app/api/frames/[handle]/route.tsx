@@ -6,7 +6,8 @@ const frames = createFrames();
 
 const handleRequest = frames(async (ctx) => {
   const url = ctx.url;
-  const userHandle = url.pathname;
+  const path = url.pathname.split("/");
+  const userHandle = path[path.length - 1];
   console.log(userHandle);
 
   // get the data for that user from kv
