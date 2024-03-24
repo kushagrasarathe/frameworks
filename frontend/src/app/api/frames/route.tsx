@@ -3,15 +3,25 @@
 import { createFrames, Button } from "frames.js/next";
 
 const frames = createFrames();
+
 const handleRequest = frames(async (ctx) => {
+  console.log(ctx.url);
   return {
     image: (
-      <div tw="w-full h-full bg-slate-700 text-white justify-center items-center">
+      <div tw="flex w-full h-full bg-slate-700 text-white justify-center items-center">
         {/* {ctx.message?.state?.count ?? 0} */}
+        <a>Introductory Frame</a>
+        <a>Get Your Reputation Score on farcaster</a>
       </div>
     ),
-    buttons: [<Button action="post">Increment counter</Button>],
-    // state: { count: (ctx.message?.state?.count ?? 0) + 1 },
+    buttons: [
+      <Button
+        action="post"
+        target={`${process.env.HOST}/api/frames/generateScore`}
+      >
+        Generate your Score now →
+      </Button>,
+    ],
   };
 });
 
