@@ -11,6 +11,7 @@ const handleRequest = frames(async (ctx) => {
       <div tw="flex w-full h-full bg-slate-700 text-white justify-center items-center">
         {/* {ctx.message?.state?.count ?? 0} */}
         <a>Introductory Frame</a>
+        <br />
         <a>Get Your Reputation Score on farcaster</a>
       </div>
     ),
@@ -21,6 +22,12 @@ const handleRequest = frames(async (ctx) => {
       >
         Generate your Score now →
       </Button>,
+    ],
+    accepts: [
+      {
+        id: "farcaster",
+        version: "vNext",
+      },
     ],
   };
 });

@@ -1,5 +1,26 @@
 import React from "react";
 
+import { fetchMetadata } from "frames.js/next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { handle: string };
+}) {
+  return {
+    title: "Farcaster Reputation Enginne",
+    // provide a full URL to your /frames endpoint
+    other: await fetchMetadata(
+      new URL(
+        `/api/frames/${params.handle}`,
+        process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : "http://localhost:3000"
+      )
+    ),
+  };
+}
+
 export default function page() {
   return (
     <div className=" flex items-center justify-center gap-5 min-h-[80vh]">

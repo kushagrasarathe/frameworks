@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const userReputationScore = await kv.get(params.handle);
-    console.log(userReputationScore);
+    // console.log(userReputationScore);
 
     return new Response(JSON.stringify(userReputationScore), {
       status: 200,
@@ -24,11 +24,13 @@ export async function POST(
 ) {
   try {
     // invoker User calculateData and then get the score and detailed info to store it on the KV
-
+    console.log(params.handle);
     const userNewScore = await calculateScore(params.handle);
     await kv.set(params.handle, userNewScore);
 
-    return new Response("User Reputation Score stored", {
+    console.log(userNewScore);
+
+    return new Response("User Reputation Score Stored", {
       status: 200,
     });
   } catch (error: any) {

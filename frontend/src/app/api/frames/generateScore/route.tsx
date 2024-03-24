@@ -13,6 +13,7 @@ const handleRequest = frames(async (ctx) => {
 
     const userFData = await getUserDataForFid({ fid: userFid });
     const userHandle = userFData?.username;
+    console.log(userHandle);
 
     // try to fetch the data for the user\
     // get Data if present from KV
@@ -41,7 +42,14 @@ const handleRequest = frames(async (ctx) => {
             <a>Hit refresh now</a>
           </div>
         ),
-        buttons: [<Button action="post">Refresh</Button>],
+        buttons: [
+          <Button
+            action="post"
+            target={`${process.env.HOST}/api/frames/generateScore`}
+          >
+            Refresh
+          </Button>,
+        ],
         // state: { count: (ctx.message?.state?.count ?? 0) + 1 },
       };
     } else {
@@ -51,7 +59,7 @@ const handleRequest = frames(async (ctx) => {
         image: (
           <div tw="flex w-full h-full bg-slate-700 text-white justify-center items-center">
             {/* {ctx.message?.state?.count ?? 0} */}
-            <a>Trust Score : 785</a>
+            <a>Trust Score : {userData.totalScore}</a>
           </div>
         ),
         buttons: [
